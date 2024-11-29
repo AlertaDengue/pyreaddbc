@@ -8,8 +8,7 @@ import os
 try:
     from pyreaddbc._readdbc import ffi, lib
 except (ImportError, ModuleNotFoundError):
-    pass
-    # from ._readdbc import ffi, lib
+    from ._readdbc import ffi, lib
 
 
 def dbc2dbf(infile, outfile):

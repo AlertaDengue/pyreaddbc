@@ -31,7 +31,7 @@ classifiers = [
 [tool.setuptools]
 py-modules = ["pyreaddbc"]
 ext-modules = [
-    {name = "pyreaddbc._readdbc",  sources = ["pyreaddbc/_readdbc.c"],     include-dirs = ["pyreaddbc"]}#,    libraries = ["readdbc"],    library-dirs = ["pyreaddbc"]},
+    {name = "pyreaddbc._readdbc",  sources = ["pyreaddbc/_readdbc.c", "pyreaddbc/c-src/blast.c"],     include-dirs = ["pyreaddbc", "pyreaddbc/c-src"]}#,    libraries = ["readdbc"],    library-dirs = ["pyreaddbc"]},
 ]
 
 [build-system]
