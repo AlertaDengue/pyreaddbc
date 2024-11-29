@@ -20,8 +20,8 @@ with open(PACKAGE_ABS_PATH / "c-src" / "dbc2dbf.c", "r") as f:
         source=f.read(),
         source_extension=".c",
         libraries=["c"],
-        sources=[str(PACKAGE_REL_PATH / "c-src" / "blast.c")],
-        include_dirs=[str(PACKAGE_REL_PATH / "c-src")],
+        sources=[str(PACKAGE_ABS_PATH /"c-src"/ "blast.c")],
+        include_dirs=[str(PACKAGE_ABS_PATH / "c-src"), str(PACKAGE_ABS_PATH), str(PACKAGE_REL_PATH)],
     )
 ffibuilder.cdef(
     """
@@ -31,7 +31,7 @@ ffibuilder.cdef(
     """
 )
 
-with open(PACKAGE_ABS_PATH / "c-src" / "blast.h") as f:
+with open(PACKAGE_ABS_PATH / "c-src" / "blast.h", "r") as f:
     ffibuilder.cdef(f.read(), override=True)
 
 
