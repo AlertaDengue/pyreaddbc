@@ -13,7 +13,7 @@ dependencies = [
     "setuptools>=75.6.0",
 ]
 name = "pyreaddbc"
-version = "1.1.0"
+version = "1.2.0"
 description = "pyreaddbc package"
 readme = "README.md"
 classifiers = [
@@ -28,17 +28,11 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
 ]
 
-#include = [
-#    {path = "pyreaddbc/_readdbc.so"}
-#]
 [tool.setuptools]
 py-modules = ["pyreaddbc"]
 ext-modules = [
-    {name = "pyreaddbc._readdbc",  sources = ["pyreaddbc/_readdbc.c"],     include-dirs = ["pyreaddbc"],    libraries = ["readdbc"],    library-dirs = ["pyreaddbc"]},
+    {name = "pyreaddbc._readdbc",  sources = ["pyreaddbc/_readdbc.c"],     include-dirs = ["pyreaddbc"]}#,    libraries = ["readdbc"],    library-dirs = ["pyreaddbc"]},
 ]
-
-[tool.setuptools.cmdclass]
-build_py = "pyreaddbc._build_readdbc"
 
 [build-system]
 requires = ["setuptools>=61", "cffi"]
