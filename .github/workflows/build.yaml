@@ -19,7 +19,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - uses: conda-incubator/setup-miniconda@v2
       with:
         miniconda-version: "latest"
@@ -31,24 +31,23 @@ jobs:
         miniforge-variant: Mambaforge
 
     - name: Install uv
-       uses: astral-sh/setup-uv@v4
+      uses: astral-sh/setup-uv@v4
 
     - name: Set up Python
-            run: uv python install
+      run: uv python install
 
-          - name: Install the project
-            run: uv sync --all-extras --dev
+    - name: Install the project
+      run: uv sync --all-extras --dev
 
-          - name: Run tests
-            # For example, using `pytest`
-            run: uv run pytest tests
+    - name: Run tests
+      # For example, using `pytest`
+      run: uv run pytest tests
 
-         - name: Build wheel
-            run: uv build --wheel
+    - name: Build wheel
+      run: uv build --wheel
 
     - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
+      run: # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
