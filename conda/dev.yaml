@@ -6,4 +6,4 @@ dependencies:
   - cffi
   - gcc
   - pip
-  - poetry
+  - uv
