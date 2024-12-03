@@ -7,3 +7,4 @@ dependencies:
   - gcc
   - pip
   - uv
+  - poetry
