@@ -1,64 +1,58 @@
-[build-system]
-requires = [
-    "poetry-core>=1.0.0", "setuptools>=41.0.0", "wheel", "cffi"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.build]
-script = "pyreaddbc/_build_readdbc.py"
-generate-setup-file = false
-
-[tool.poetry.group.dev.dependencies]
-pandas = "^2.1.0"
-
-[tool.poetry]
+[project]
+authors = [
+    { name = "Flavio Codeco Coelho", email = "fccoelho@gmail.com" },
+    { name = "Sandro Loch", email = "es.loch@gmail.com" },
+]
+license = { text = "AGPL-3.0" }
+requires-python = "<4,>=3.9"
+dependencies = [
+    "dbfread<3,>=2.0.7",
+    "tqdm<5,>=4.64.0",
+    "cffi<2,>=1.15.1",
+    "pyyaml>=6",
+    "setuptools>=75.6.0",
+]
 name = "pyreaddbc"
-version = "1.1.0"  # changed by semantic-release
+version = "1.1.0"   # changed by semantic-release
 description = "pyreaddbc package"
 readme = "README.md"
-authors = ["Flavio Codeco Coelho <fccoelho@gmail.com>", "Sandro Loch <es.loch@gmail.com>"]
-license = "AGPL-3.0"
-repository = "https://github.com/osl-incubator/pyreaddbc"
-homepage = "https://github.com/osl-incubator/pyreaddbc"
-
-# Pypi classifiers: https://pypi.org/classifiers/
-classifiers = [  #! Update me
-  "Development Status :: 3 - Alpha",
-  "Intended Audience :: Developers",
-  "Operating System :: OS Independent",
-  "Topic :: Software Development :: Libraries :: Python Modules",
-  "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
 ]
 
-include = [
-    {path = "pyreaddbc/_readdbc.so"}
+[tool.setuptools]
+py-modules = ["pyreaddbc"]
+ext-modules = [
+    {name = "pyreaddbc._readdbc",  sources = ["pyreaddbc/_readdbc.c", "pyreaddbc/c-src/blast.c"],     include-dirs = ["pyreaddbc", "pyreaddbc/c-src"]}#,    libraries = ["readdbc"],    library-dirs = ["pyreaddbc"]},
 ]
 
-packages = [
-    { include = "pyreaddbc" },
-]
+[build-system]
+requires = ["setuptools>=61", "cffi"]
+build-backend = "setuptools.build_meta"
 
-[tool.poetry.dependencies]
-python = ">=3.9,<4"
-dbfread = ">=2.0.7,<3"
-tqdm = ">=4.64.0,<5"
-cffi = ">=1.15.1,<2"
-pyyaml = ">=6"
-
-[tool.poetry.dev-dependencies]
-black = ">=22.6.0"
-isort = ">=5.10.1"
-flake8 = ">=5.0.4"
-pre-commit = ">=2.20.0"
-pytest = ">=7.1.2"
-commitizen = ">=2.32.2"
-chardet = ">=5.2.0"
+[build]
+default = ["python", "-m", "./pyreaddbc/_build_readdbc.py"]
 
 [tool.black]
 line-length = 79
 skip-string-normalization = true
-target-version = ["py39", "py310", "py311"]
+target-version = ["py39", "py310", "py311", "py312"]
 exclude = "docs/"
+
+[project.optional-dependencies]
+dev = [
+    "pytest<9.0.0,>=8.1.1",
+    "pandas<3.0.0,>=2.1.0",
+]
+
+[project.urls]
+Repository = "https://github.com/AlertaDengue/pyreaddbc"
+
