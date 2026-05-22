@@ -1,46 +1,23 @@
 [build-system]
-requires = [
-    "poetry-core>=1.0.0", "setuptools>=41.0.0", "wheel"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=61.0.0,<77", "wheel"]
+build-backend = "setuptools.build_meta"
 
-[tool.poetry.build]
-generate-setup-file = true
-
-[tool.poetry]
+[project]
 name = "pyreaddbc"
 version = "1.1.0"  # changed by semantic-release
 description = "pyreaddbc package"
 readme = "README.md"
-authors = ["Flavio Codeco Coelho <fccoelho@gmail.com>", "Sandro Loch <es.loch@gmail.com>"]
-license = "AGPL-3.0"
-repository = "https://github.com/osl-incubator/pyreaddbc"
-homepage = "https://github.com/osl-incubator/pyreaddbc"
-
-# Pypi classifiers: https://pypi.org/classifiers/
-classifiers = [  #! Update me
-  "Development Status :: 3 - Alpha",
-  "Intended Audience :: Developers",
-  "Operating System :: OS Independent",
-  "Topic :: Software Development :: Libraries :: Python Modules",
-  "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
+authors = [
+    {name = "Flavio Codeco Coelho", email = "fccoelho@gmail.com"},
+    {name = "Sandro Loch", email = "es.loch@gmail.com"},
+    {name = "Luã Vacaro", email = "luabidaa@gmail.com"},
 ]
+license = {text = "AGPL-3.0"}
+requires-python = ">=3.9,<4"
+dependencies = ["dbfread>=2.0.7,<3"]
 
-include = [
-    {path = "pyreaddbc/_readdbcmodule*.so"},
-    {path = "pyreaddbc/_readdbcmodule*.pyd"},
-]
-
-packages = [
-    { include = "pyreaddbc" },
-]
-
-[tool.poetry.dependencies]
-python = ">=3.9,<4"
-dbfread = ">=2.0.7,<3"
+[tool.setuptools]
+packages = ["pyreaddbc"]
 
 [tool.poetry.group.dev.dependencies]
 pandas = "^2.1.0"
@@ -51,6 +28,13 @@ pre-commit = ">=2.20.0"
 pytest = ">=7.1.2"
 commitizen = ">=2.32.2"
 chardet = ">=5.2.0"
+
+[tool.cibuildwheel]
+build = "cp39-* cp310-* cp311-* cp312-* cp313-*"
+skip = "*-win32 *-manylinux_i686 *-musllinux_*"
+
+[tool.cibuildwheel.linux]
+archs = ["x86_64", "aarch64"]
 
 [tool.black]
 line-length = 79

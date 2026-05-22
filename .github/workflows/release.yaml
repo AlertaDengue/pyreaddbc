@@ -41,7 +41,4 @@ jobs:
       if: ${{ github.event_name == 'workflow_dispatch' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PYPI_TOKEN: ${{ secrets.PYPIPYREADDBCTOKEN }}
-      run: |
-        poetry config pypi-token.pypi ${PYPI_TOKEN}
-        make release
+      run: make release
