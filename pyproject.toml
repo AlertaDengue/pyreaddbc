@@ -1,14 +1,10 @@
 [build-system]
 requires = [
-    "poetry-core>=1.0.0", "setuptools>=41.0.0", "wheel", "cffi"]
+    "poetry-core>=1.0.0", "setuptools>=41.0.0", "wheel"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.build]
-script = "pyreaddbc/_build_readdbc.py"
-generate-setup-file = false
-
-[tool.poetry.group.dev.dependencies]
-pandas = "^2.1.0"
+generate-setup-file = true
 
 [tool.poetry]
 name = "pyreaddbc"
@@ -34,7 +30,8 @@ classifiers = [  #! Update me
 ]
 
 include = [
-    {path = "pyreaddbc/_readdbc.so"}
+    {path = "pyreaddbc/_readdbcmodule*.so"},
+    {path = "pyreaddbc/_readdbcmodule*.pyd"},
 ]
 
 packages = [
@@ -44,11 +41,9 @@ packages = [
 [tool.poetry.dependencies]
 python = ">=3.9,<4"
 dbfread = ">=2.0.7,<3"
-tqdm = ">=4.64.0,<5"
-cffi = ">=1.15.1,<2"
-pyyaml = ">=6"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+pandas = "^2.1.0"
 black = ">=22.6.0"
 isort = ">=5.10.1"
 flake8 = ">=5.0.4"
