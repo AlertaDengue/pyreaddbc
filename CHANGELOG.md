@@ -1,6 +1,12 @@
 Release Notes
 ---
 
+## [2.0.1](https://github.com/AlertaDengue/pyreaddbc/compare/2.0.0...2.0.1) (2026-05-25)
+
+### Bug Fixes
+
+* **release:** release workflow should trigger publish too ([#26](https://github.com/AlertaDengue/pyreaddbc/issues/26)) ([9c48298](https://github.com/AlertaDengue/pyreaddbc/commit/9c48298f1b26722b04a12b7e0a6e360c1c0444af))
+
 ## [2.0.0](https://github.com/AlertaDengue/pyreaddbc/compare/1.2.0...2.0.0) (2026-05-25)
 
 ### ⚠ BREAKING CHANGES
