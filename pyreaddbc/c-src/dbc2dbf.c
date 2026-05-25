@@ -32,7 +32,10 @@
 #include <errno.h>
 #include <string.h>
 #include <stdint.h>
-// #include <R.h>
+
+#ifdef _MSC_VER
+#pragma warning(disable: 4996)
+#endif
 
 #include "blast.h"
 
@@ -103,12 +106,18 @@ void dbc2dbf(char** input_file, char** output_file) {
     rewind(input);
 
     /* Copy file header from input to output */
-    unsigned char buf[header];
+    unsigned char *buf = (unsigned char *)malloc(header);
+    if (buf == NULL) {
+        printf("Error allocating memory");
+        perror("");
+        return;
+    }
 
     ret = fread(buf, 1, header, input);
     if( ferror(input) ) {
         printf("Error reading input file %s: %s", input_file[0], strerror(errno));
         perror("");
+        free(buf);
         return;
     }
 
@@ -118,6 +127,7 @@ void dbc2dbf(char** input_file, char** output_file) {
     if( ferror(output) ) {
         printf("Error writing output file %s: %s", output_file[0], strerror(errno));
         perror("");
+        free(buf);
         return;
     }
 
@@ -125,6 +135,7 @@ void dbc2dbf(char** input_file, char** output_file) {
     if( fseek(input, header + 4, SEEK_SET) ) {
         printf("Error processing input file %s: %s", input_file[0], strerror(errno));
         perror("");
+        free(buf);
         return;
     }
 
@@ -143,6 +154,7 @@ void dbc2dbf(char** input_file, char** output_file) {
         perror("");
     }
 
+    free(buf);
     fclose(input);
     fclose(output);
 }
