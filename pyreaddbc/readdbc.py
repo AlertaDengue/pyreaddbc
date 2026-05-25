@@ -5,10 +5,7 @@ license: GPL V3 or Later
 """
 import os
 
-try:
-    from pyreaddbc._readdbc import ffi, lib
-except (ImportError, ModuleNotFoundError):
-    from ._readdbc import ffi, lib
+from pyreaddbc._readdbcmodule import dbc2dbf as _dbc2dbf
 
 
 def dbc2dbf(infile, outfile):
@@ -17,11 +14,10 @@ def dbc2dbf(infile, outfile):
     :param infile: .dbc file name
     :param outfile: name of the .dbf file to be created.
     """
-    if isinstance(infile, str):
-        infile = infile.encode()
-    if isinstance(outfile, str):
-        outfile = outfile.encode()
-    p = ffi.new("char[]", os.path.abspath(infile))
-    q = ffi.new("char[]", os.path.abspath(outfile))
-
-    lib.dbc2dbf([p], [q])
+    if isinstance(infile, bytes):
+        infile = infile.decode()
+    if isinstance(outfile, bytes):
+        outfile = outfile.decode()
+    infile = os.path.abspath(infile)
+    outfile = os.path.abspath(outfile)
+    _dbc2dbf(infile, outfile)

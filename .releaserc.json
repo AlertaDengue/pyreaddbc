@@ -59,8 +59,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "poetry build",
-        "publishCmd": "poetry publish --build"
+        "prepareCmd": "python -m pip install build && python -m build --sdist"
       }
     ],
     [

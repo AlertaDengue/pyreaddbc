@@ -1,0 +1,1 @@
+include pyreaddbc/c-src/blast.h

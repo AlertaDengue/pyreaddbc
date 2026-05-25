@@ -25,6 +25,10 @@ install:
 test:
 	$(PYTEST) -vv -k "ZIKABR21 or STPI2206 or sids" tests/
 
+.PHONY: coverage
+coverage:
+	$(PYTEST) -vv -k "ZIKABR21 or STPI2206 or sids" --cov=pyreaddbc --cov-report=term --cov-report=xml tests/
+
 
 .PHONY: clean-build
 clean-build: ## Remove build artifacts
