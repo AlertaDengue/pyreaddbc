@@ -28,6 +28,21 @@ pre-commit = ">=2.20.0"
 pytest = ">=7.1.2"
 commitizen = ">=2.32.2"
 chardet = ">=5.2.0"
+pytest-cov = ">=4"
+
+[tool.coverage.run]
+source = ["pyreaddbc"]
+omit = ["tests/*", "setup.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if __name__ == .__main__.:",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]
 
 [tool.cibuildwheel]
 build = "cp39-* cp310-* cp311-* cp312-* cp313-*"

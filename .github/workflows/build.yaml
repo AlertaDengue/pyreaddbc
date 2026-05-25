@@ -53,6 +53,33 @@ jobs:
       run: |
         python -m pytest -vv -k "ZIKABR21 or STPI2206 or sids" tests/
 
+  coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.13"
+
+    - name: Install dependencies
+      run: |
+        pip install -e .
+        pip install pytest pytest-cov pandas
+
+    - name: Run tests with coverage
+      run: |
+        python -m pytest -vv -k "ZIKABR21 or STPI2206 or sids" --cov=pyreaddbc --cov-report=xml --cov-report=term tests/
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: coverage.xml
+        fail_ci_if_error: false
+
   build_wheels:
     name: Build wheel on ${{ matrix.os }}
     strategy:
