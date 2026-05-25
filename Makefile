@@ -3,8 +3,8 @@ PYTHON = poetry run python
 PYTEST = poetry run pytest
 TEST_FILES = tests/data/*.dbf tests/data/*.gz
 SEMANTIC_RELEASE = npx --yes \
-          -p semantic-release \
-          -p conventional-changelog-conventionalcommits \
+          -p semantic-release@24 \
+          -p conventional-changelog-conventionalcommits@8 \
           -p "@semantic-release/commit-analyzer" \
           -p "@semantic-release/release-notes-generator" \
           -p "@semantic-release/changelog" \
