@@ -103,6 +103,49 @@ def test_dbc_file_header(db_test):
         assert is_valid, f"{dbc_file} is not a valid DBC file."
 
 
+def test_invalid_dbc_no_segfault():
+    """Verify that malformed DBC files don't segfault the C extension."""
+    import tempfile, os
+
+    # File smaller than 10 bytes (can't read 2-byte header size at offset 8)
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".dbc") as f:
+        f.write(b"x" * 5)
+        tiny = f.name
+    try:
+        dbc2dbf(tiny.encode(), "/tmp/__pyreaddbc_test.dbf".encode())
+    except Exception:
+        pass
+    finally:
+        os.unlink(tiny)
+
+    # File with header_size = 0 at offset 8 (buf[-1] underflow before fix)
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".dbc") as f:
+        f.write(b"\x00" * 8 + b"\x00\x00" + b"\x00" * 10)
+        zero_hdr = f.name
+    try:
+        dbc2dbf(zero_hdr.encode(), "/tmp/__pyreaddbc_test.dbf".encode())
+    except Exception:
+        pass
+    finally:
+        os.unlink(zero_hdr)
+
+    # File with header_size = 10 at offset 8 (< 32 minimum)
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".dbc") as f:
+        f.write(b"\x00" * 8 + b"\x0a\x00" + b"\x00" * 20)
+        small_hdr = f.name
+    try:
+        dbc2dbf(small_hdr.encode(), "/tmp/__pyreaddbc_test.dbf".encode())
+    except Exception:
+        pass
+    finally:
+        os.unlink(small_hdr)
+
+    try:
+        os.unlink("/tmp/__pyreaddbc_test.dbf")
+    except OSError:
+        pass
+
+
 def assert_dataframe_valid(df):
     assert isinstance(df, pd.DataFrame)
     assert not df.empty
