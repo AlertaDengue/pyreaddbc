@@ -1,6 +1,12 @@
 Release Notes
 ---
 
+## [2.0.2](https://github.com/AlertaDengue/pyreaddbc/compare/2.0.1...2.0.2) (2026-05-26)
+
+### Bug Fixes
+
+* **release:** remove python 3.13 because it's freezing the ubuntu wheels release on x86_64 ([#29](https://github.com/AlertaDengue/pyreaddbc/issues/29)) ([2ddf08a](https://github.com/AlertaDengue/pyreaddbc/commit/2ddf08ae7ba5567ed6de301668828c0c2dd2a8d6))
+
 ## [2.0.1](https://github.com/AlertaDengue/pyreaddbc/compare/2.0.0...2.0.1) (2026-05-25)
 
 ### Bug Fixes
