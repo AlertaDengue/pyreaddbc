@@ -13,7 +13,7 @@ authors = [
     {name = "Luã Vacaro", email = "luabidaa@gmail.com"},
 ]
 license = {text = "AGPL-3.0"}
-requires-python = ">=3.9,<4"
+requires-python = ">=3.9,<3.13"
 dependencies = ["dbfread>=2.0.7,<3"]
 
 [tool.setuptools]
