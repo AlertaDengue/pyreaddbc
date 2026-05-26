@@ -93,14 +93,21 @@ void dbc2dbf(char** input_file, char** output_file) {
 
     /* Reads two bytes from the header = header size */
     ret = fread(rawHeader, 2, 1, input);
-    if( ferror(input) ) {
-        printf("Error reading input file %s: %s", input_file[0], strerror(errno));
+    if( ret != 1 || ferror(input) ) {
+        printf("Error reading header size from %s: %s", input_file[0], strerror(errno));
         perror("");
         return;
     }
 
     /* Platform independent code (header is stored in little endian format) */
     header = rawHeader[0] + (rawHeader[1] << 8);
+
+    /* Validate header size before using it */
+    if( header < 32 ) {
+        printf("Invalid or corrupt DBC file: %s has implausible header "
+               "size %u (must be at least 32).", input_file[0], header);
+        return;
+    }
 
     /* Reset file pointer */
     rewind(input);
@@ -114,7 +121,7 @@ void dbc2dbf(char** input_file, char** output_file) {
     }
 
     ret = fread(buf, 1, header, input);
-    if( ferror(input) ) {
+    if( ret != header || ferror(input) ) {
         printf("Error reading input file %s: %s", input_file[0], strerror(errno));
         perror("");
         free(buf);
