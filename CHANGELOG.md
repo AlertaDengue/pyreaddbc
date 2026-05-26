@@ -1,6 +1,12 @@
 Release Notes
 ---
 
+## [2.0.4](https://github.com/AlertaDengue/pyreaddbc/compare/2.0.3...2.0.4) (2026-05-26)
+
+### Bug Fixes
+
+* **readdbc.c:** fix segfault when reading small DBC's with no headers ([#32](https://github.com/AlertaDengue/pyreaddbc/issues/32)) ([4fe3a19](https://github.com/AlertaDengue/pyreaddbc/commit/4fe3a198b5abc268b2100fbe1a511f22a2c97d0a))
+
 ## [2.0.3](https://github.com/AlertaDengue/pyreaddbc/compare/2.0.2...2.0.3) (2026-05-26)
 
 ### Reverts
